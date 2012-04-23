@@ -268,8 +268,8 @@ namespace GrandAStudio.Filmia
 
                             && qq.IsDeleted == 0)))
                 {
-                    if(resetAnswered)
-                    q.IsAnswered = 0;
+                    //if(resetAnswered)
+                    //q.IsAnswered = 0;
                     
                     q.IsAsked = 0;
 
@@ -278,28 +278,34 @@ namespace GrandAStudio.Filmia
 
                
                 App.ViewModel.Save();
-                questions = getQuestionsByCategory(catID, questions).ToList();
+                questions = getQuestionsByCategory(catID).ToList();
             }
             Items = new ObservableCollection<Questions>(questions);
             return questions;
         }
         private List<Questions> getQuestionsByCategory(long catID)
         {
+            byte isComplete =  dbcontext.Categories.Where(c => c.IID == catID).Select(c=> c.IsCompleted).FirstOrDefault().Value ;
+          
             List<Questions> questions = new List<Questions>();
-            questions = dbcontext.Questions.Where(q => q.CategoryID == catID
-                           && q.IsAnswered == 0
-                           && q.IsAsked == 0
-                           && q.IsDeleted == 0).ToList();
+            if (isComplete == 1)
+            {
+                questions = dbcontext.Questions.Where(q => q.CategoryID == catID
+
+                              && q.IsAsked == 0
+                              && q.IsDeleted == 0).ToList();
+                return questions;
+            }
+            else
+            {
+                questions = dbcontext.Questions.Where(q => q.CategoryID == catID
+                               && q.IsAnswered == 0
+                               && q.IsAsked == 0
+                               && q.IsDeleted == 0).ToList();
+            }
             return questions;
         }
-        private List<Questions> getQuestionsByCategory(long catID, List<Questions> questions)
-        {
-            questions = dbcontext.Questions.Where(q => q.CategoryID == catID
-                          
-                           && q.IsAsked == 0
-                           && q.IsDeleted == 0).ToList();
-            return questions;
-        }
+       
 
         public void ResetGame()
         {
