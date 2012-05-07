@@ -41,6 +41,7 @@ namespace GrandAStudio.Filmia
                         imgMsgStrip.Visibility = System.Windows.Visibility.Visible;
                         lblMsg.Visibility = System.Windows.Visibility.Visible;
                         App.ViewModel.GScore.AvailPasses = App.ViewModel.GScore.AvailPasses + "," + txtCode.Text;
+                        App.CurrentApp.PlaySound("unlock.wav");
                        // App.ViewModel.GScore.TotalPasses++;
                         App.ViewModel.Save();
                     }

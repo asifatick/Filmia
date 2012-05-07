@@ -54,10 +54,16 @@ namespace GrandAStudio.Filmia
                 }
             }
         }
-        public bool _IsSoundsOn;
-        public bool IsSoundsOn { get { return _IsSoundsOn; } set {
+        public bool _IsSoundsOn =true;
+        public bool IsSoundsOn { get 
+        {
+            _IsSoundsOn = Convert.ToBoolean( GScore.IsSoundOn);
+            return _IsSoundsOn;
+        } set {
 
             _IsSoundsOn = value;
+            GScore.IsSoundOn = Convert.ToInt32( value);
+            Save();
             NotifyPropertyChanged("IsSoundsOn");
         } }
 
@@ -215,9 +221,20 @@ namespace GrandAStudio.Filmia
             CurrentCat = (int)catID;
 
             List<Questions> questions = ResetQuestionsByCat(catID);    
-              
+              //IsSoundsOn = dbcontext.Score.First().
             
             this.IsDataLoaded = true;
+        }
+        public Tips GetRandomTips()
+        {
+           
+
+            Random r = new Random();
+            int randomIndex = 0;
+
+            randomIndex = r.Next(1, dbcontext.Tips.Count());
+
+            return dbcontext.Tips.Where(t => t.IID == randomIndex).FirstOrDefault();
         }
         public Questions GetRandomQuestion()
         {

@@ -14,7 +14,9 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using System.IO.IsolatedStorage;
 using System.IO;
-
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using System.Windows.Resources;
 namespace GrandAStudio.Filmia
 {
     public partial class App : Application
@@ -23,8 +25,10 @@ namespace GrandAStudio.Filmia
 
 
         private static App app;
-
- 
+        public bool IsBgSoundPlaying = false;
+        public static SoundEffect _GameSound;
+        public  SoundEffect _BackSound;
+       // public static SoundEffectInstance _currentSound;
 
         public static App CurrentApp
 
@@ -33,9 +37,139 @@ namespace GrandAStudio.Filmia
             get { return app; }
 
         }
+        public void CloseBGPlayer()
+        {
+            IsBgSoundPlaying = false;
+        }
+        public void StopbackgroundSound()
+        {
+            IsBgSoundPlaying = false;
+            MediaElement player = null; // get the media element from App resources
+            if (App.Current.Resources.Contains("bgPlayer"))
+            {
+                player = App.Current.Resources["bgPlayer"] as MediaElement;
+            }
+            if (player != null)
+            {
+                player.Stop();
 
- 
+            }
+            
+        }
+        public void pausebackgroundSound()
+        {
+            IsBgSoundPlaying = false;
+            MediaElement player = null; // get the media element from App resources
+            if (App.Current.Resources.Contains("bgPlayer"))
+            {
+                player = App.Current.Resources["bgPlayer"] as MediaElement;
+            }
+            if (player != null)
+            {
+                player.Pause();
 
+            }
+
+        }
+        public void resumebackgroundSound()
+        {
+            
+            MediaElement player = null; // get the media element from App resources
+            if (App.Current.Resources.Contains("bgPlayer"))
+            {
+                player = App.Current.Resources["bgPlayer"] as MediaElement;
+            }
+            if (player != null)
+            {
+                player.Source = (new Uri("/sounds/" + _CurrentBGSound, UriKind.Relative));
+                IsBgSoundPlaying = true;
+
+            }
+
+        }
+
+        
+        private SoundEffectInstance _currentSound = null;
+        public void PlaySound(string source)
+        {
+            SoundEffect se;
+            if (_currentSound != null)
+            {
+                _currentSound.Stop();
+                _currentSound = null;
+            }
+            var isoStore = System.IO.IsolatedStorage.IsolatedStorageFile.GetUserStoreForApplication();
+            if (isoStore.FileExists(source))
+            {
+                byte[] fileContents;
+                using (var fileStream = isoStore.OpenFile(source, FileMode.Open))
+                {
+                    se = SoundEffect.FromStream(fileStream);
+                    fileStream.Close();//not really needed, but it makes me feel better. 
+                }
+
+                _currentSound = se.CreateInstance();
+                _currentSound.Play();
+            }
+        }
+        string _CurrentBGSound = "";
+        public  void SetCurrentBackGroundSound( string _fileName, string title )
+        {
+            _CurrentBGSound = _fileName;
+
+            MediaElement player = null; // get the media element from App resources
+            if (App.Current.Resources.Contains("bgPlayer"))
+            {
+                player = App.Current.Resources["bgPlayer"] as MediaElement;
+            }
+            if (player != null)
+            {
+                player.Source = (new Uri("/sounds/" + _CurrentBGSound, UriKind.Relative));
+                IsBgSoundPlaying = true;
+                
+            }
+          
+         
+        }
+        
+
+        /*
+         "Button_Pressed.mp3",
+                                                "categories.mp3", 
+                                                "cheer.mp3",
+                "gameplay.mp3","menu.mp3","score_screen.mp3","unlock.mp3","wrong_answer8.mp3",
+         */
+        private void CopyToIsolatedStorage()
+        {
+            using (IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication())
+            {
+                string[] files = new string[] { 
+                "ButtonPressed.wav",
+                "unlock.wav",
+                "wronganswer.wav"};
+
+                foreach (var _fileName in files)
+                {
+                    if (!storage.FileExists(_fileName))
+                    {
+                        string _filePath = "sounds/" + _fileName;
+                        StreamResourceInfo resource = Application.GetResourceStream(new Uri(_filePath, UriKind.Relative));
+
+                        using (IsolatedStorageFileStream file = storage.CreateFile(_fileName))
+                        {
+                            int chunkSize = 4096;
+                            byte[] bytes = new byte[chunkSize];
+                            int byteCount;
+
+                            while ((byteCount = resource.Stream.Read(bytes, 0, chunkSize)) > 0)
+                            {
+                                file.Write(bytes, 0, byteCount);
+                            }
+                        }
+                    }
+                }
+            }
+        }
  
 
         public Moviadb1DataContext DB { get; private set; }
@@ -74,7 +208,7 @@ namespace GrandAStudio.Filmia
         public PhoneApplicationFrame RootFrame { get; private set; }
 
 
-
+       
         
         /// <summary>
         /// Constructor for the Application object.
@@ -87,6 +221,7 @@ namespace GrandAStudio.Filmia
             {                
                 App.CurrentApp.DB.CreateDatabase();               
             }
+            CopyToIsolatedStorage();
            
             // Global handler for uncaught exceptions. 
             UnhandledException += Application_UnhandledException;
@@ -134,6 +269,7 @@ namespace GrandAStudio.Filmia
             {
                 App.ViewModel.LoadData(8);
             }
+            resumebackgroundSound();
         }
 
         // Code to execute when the application is deactivated (sent to background)
@@ -141,12 +277,15 @@ namespace GrandAStudio.Filmia
         private void Application_Deactivated(object sender, DeactivatedEventArgs e)
         {
             // Ensure that required application state is persisted here.
+            pausebackgroundSound();
+
         }
 
         // Code to execute when the application is closing (eg, user hit Back)
         // This code will not execute when the application is deactivated
         private void Application_Closing(object sender, ClosingEventArgs e)
         {
+            
         }
 
         // Code to execute if a navigation fails
@@ -165,6 +304,9 @@ namespace GrandAStudio.Filmia
             if (System.Diagnostics.Debugger.IsAttached)
             {
                 // An unhandled exception has occurred; break into the debugger
+              
+                StopbackgroundSound();
+                CloseBGPlayer();
                 System.Diagnostics.Debugger.Break();
             }
         }
@@ -204,5 +346,33 @@ namespace GrandAStudio.Filmia
         }
 
         #endregion
+
+        private void bgPlayer_MediaOpened(object sender, RoutedEventArgs e)
+        {
+            MediaElement player = null; // get the media element from App resources
+            if (App.Current.Resources.Contains("bgPlayer"))
+            {
+                player = App.Current.Resources["bgPlayer"] as MediaElement;
+            }
+            if (player != null)
+            {
+                //player.Source = (new Uri("/sounds/" + _CurrentBGSound, UriKind.Relative));
+                player.Play();
+            }
+        }
+
+        private void bgPlayer_MediaEnded(object sender, RoutedEventArgs e)
+        {
+            MediaElement player = null; // get the media element from App resources
+            if (App.Current.Resources.Contains("bgPlayer"))
+            {
+                player = App.Current.Resources["bgPlayer"] as MediaElement;
+            }
+            if (player != null)
+            {
+                player.Source = (new Uri("/sounds/" + _CurrentBGSound, UriKind.Relative));
+               // player.Play();
+            }
+        }
     }
 }

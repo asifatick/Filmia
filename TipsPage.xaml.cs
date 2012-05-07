@@ -14,32 +14,34 @@ using System.Windows.Threading;
 
 namespace GrandAStudio.Filmia
 {
-    public partial class MainPage : PhoneApplicationPage
+    public partial class TipsPage : PhoneApplicationPage
     {
         DispatcherTimer dtMain = new DispatcherTimer();
-        public MainPage()
+        public TipsPage()
         {
             InitializeComponent();
+            DataContext = App.ViewModel.GetRandomTips();
            
-
-            // Set the data context of the listbox control to the sample data
-
-            DataContext = App.ViewModel;
 
             dtMain.Interval = new TimeSpan(0, 0, 0, 0, 2000); // 1 Seconds
             dtMain.Tick += new EventHandler(dt_Tick);
 
-            this.Loaded += new RoutedEventHandler(MainPage_Loaded);
+            this.Loaded += new RoutedEventHandler(TipsPage_Loaded);
         }
-        private void MainPage_Loaded(object sender, RoutedEventArgs e)
+        private void TipsPage_Loaded(object sender, RoutedEventArgs e)
         {
             dtMain.Start();
         }
         void dt_Tick(object sender, EventArgs e)
         {
             dtMain.Stop();
-            App.CurrentApp.SetCurrentBackGroundSound("menu.mp3","1");
-            NavigationService.Navigate(new Uri("/MenuPage.xaml", UriKind.Relative));
+            App.CurrentApp.SetCurrentBackGroundSound("gameplay.mp3","1");
+            NavigationService.Navigate(new Uri("/GamePage.xaml", UriKind.Relative));
+        }
+
+        private void PhoneApplicationPage_BackKeyPress(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            dtMain.Stop();
         }
     }
 }

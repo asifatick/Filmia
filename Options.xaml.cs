@@ -32,12 +32,14 @@ namespace GrandAStudio.Filmia
         {
             if (App.ViewModel.IsSoundsOn == true)
             {
-                ((BitmapImage)btnSounds.Source).UriSource = new Uri(@"Images/mainscreensoundon.png", UriKind.Relative);
+               // ((BitmapImage)btnSounds.Source).UriSource = new Uri(@"Images/mainscreensoundon.png", UriKind.Relative);
+                rbSoundOn.IsChecked = true;
 
             }
             else
             {
-                ((BitmapImage)btnSounds.Source).UriSource = new Uri(@"Images/mainscreensoundoff.png", UriKind.Relative);
+               // ((BitmapImage)btnSounds.Source).UriSource = new Uri(@"Images/mainscreensoundoff.png", UriKind.Relative);
+                rbSoundOff.IsChecked = true;
             }
             
         }
@@ -52,12 +54,14 @@ namespace GrandAStudio.Filmia
             if (App.ViewModel.IsSoundsOn == true)
             {
                 App.ViewModel.IsSoundsOn = false;
+                App.CurrentApp.StopbackgroundSound();
                 ((BitmapImage)btnSounds.Source).UriSource = new Uri(@"Images/mainscreensoundoff.png", UriKind.Relative);
 
             }
             else
             {
                 App.ViewModel.IsSoundsOn = true;
+                App.CurrentApp.SetCurrentBackGroundSound("menu.mp3","1");
                 ((BitmapImage)btnSounds.Source).UriSource = new Uri(@"Images/mainscreensoundon.png", UriKind.Relative);
             }
         }
@@ -65,6 +69,21 @@ namespace GrandAStudio.Filmia
         private void btnUnlock_Tap(object sender, GestureEventArgs e)
         {
             NavigationService.Navigate(new Uri("/Codes.xaml", UriKind.Relative));
+        }
+
+        private void rbSoundOn_Checked(object sender, RoutedEventArgs e)
+        {
+            App.ViewModel.IsSoundsOn = true;
+            if(!App.CurrentApp.IsBgSoundPlaying )
+                App.CurrentApp.SetCurrentBackGroundSound("menu.mp3", "1");
+        }
+
+        private void rbSoundOff_Checked(object sender, RoutedEventArgs e)
+        {
+           
+
+            App.ViewModel.IsSoundsOn = false;
+            App.CurrentApp.StopbackgroundSound();
         }
 
       

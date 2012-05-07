@@ -18,6 +18,65 @@ namespace GrandAStudio.Filmia
     using System.Collections.Generic;
     using System;
 
+
+    /// <summary>
+    /// Represents the Tips table in the database
+    /// </summary>
+    [Table]
+    public partial class Tips : INotifyPropertyChanged, INotifyPropertyChanging
+    {
+        private System.Int32? _IID;
+        private System.String _Text;
+      
+
+        //[Column(IsVersion = true)]
+        //private Binary version;
+        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        /// <summary>
+        /// Gets or sets the value of IID
+        /// </summary>
+        [Column(Name = "Id", IsPrimaryKey = true, IsDbGenerated = true)]
+        public System.Int32? IID
+        {
+            get { return _IID; }
+            set
+            {
+                if (_IID != value)
+                {
+                    if (PropertyChanging != null)
+                        PropertyChanging.Invoke(this, new PropertyChangingEventArgs("IID"));
+                    _IID = value;
+                    if (PropertyChanged != null)
+                        PropertyChanged.Invoke(this, new PropertyChangedEventArgs("IID"));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the value of Name
+        /// </summary>
+        [Column(Name = "Text")]
+        public System.String Text
+        {
+            get { return _Text; }
+            set
+            {
+                if (_Text != value)
+                {
+                    if (PropertyChanging != null)
+                        PropertyChanging.Invoke(this, new PropertyChangingEventArgs("Text"));
+                    _Text = value;
+                    if (PropertyChanged != null)
+                        PropertyChanged.Invoke(this, new PropertyChangedEventArgs("Text"));
+                }
+            }
+        }
+
+      
+
+    }
 	/// <summary>
 	/// Represents the Categories table in the database
 	/// </summary>
@@ -624,6 +683,27 @@ namespace GrandAStudio.Filmia
             }
         }
 
+        private System.Int32 _IsSoundOn;
+        /// <summary>
+        /// Gets or sets the value of Total
+        /// </summary>
+        [Column(Name = "IsSoundOn")]
+        public System.Int32 IsSoundOn
+        {
+            get { return _IsSoundOn; }
+            set
+            {
+                if (_IsSoundOn != value)
+                {
+                    if (PropertyChanging != null)
+                        PropertyChanging.Invoke(this, new PropertyChangingEventArgs("IsSoundOn"));
+                    _IsSoundOn = value;
+                    if (PropertyChanged != null)
+                        PropertyChanged.Invoke(this, new PropertyChangedEventArgs("IsSoundOn"));
+                }
+            }
+        }
+
 
 	}
 
@@ -712,5 +792,10 @@ namespace GrandAStudio.Filmia
 		/// Represents the Score table
 		/// </summary>
 		public Table<Score> Score;
+
+        /// <summary>
+        /// Represents the Tips table
+        /// </summary>
+        public Table<Tips> Tips;
 	}
 }

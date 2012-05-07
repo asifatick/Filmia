@@ -51,6 +51,7 @@
     <Reference Include="Microsoft.Phone" />
     <Reference Include="Microsoft.Phone.Controls" />
     <Reference Include="Microsoft.Phone.Interop" />
+    <Reference Include="Microsoft.Xna.Framework" />
     <Reference Include="system.data.linq" />
     <Reference Include="System.Windows" />
     <Reference Include="system" />
@@ -76,6 +77,9 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MenuPage.xaml.cs">
+      <DependentUpon>MenuPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Moviadb1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -90,6 +94,9 @@
     </Compile>
     <Compile Include="StatsPage.xaml.cs">
       <DependentUpon>StatsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TipsPage.xaml.cs">
+      <DependentUpon>TipsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Util.cs" />
     <Compile Include="ViewModels\ItemViewModel.cs" />
@@ -120,6 +127,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MenuPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Options.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -129,6 +140,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="StatsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TipsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -178,6 +193,38 @@
     <Resource Include="Images\STATS.png" />
     <Resource Include="Images\twitter_newbird_blue.png" />
     <Resource Include="Images\unlock - play when code is unlocked.mp3" />
+    <Resource Include="icons\173.png" />
+    <Resource Include="icons\200.png" />
+    <Resource Include="icons\62.png" />
+    <Resource Include="icons\99.png" />
+    <Resource Include="Images\windows company logo.png" />
+    <Content Include="sounds\ButtonPressed.wav" />
+    <Content Include="sounds\Button_Pressed.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="sounds\categories.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="sounds\cheer.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="sounds\gameplay.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="sounds\menu.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="sounds\score_screen.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="sounds\unlock.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="sounds\unlock.wav" />
+    <Content Include="sounds\wronganswer.wav" />
+    <Content Include="sounds\wrong_answer8.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />

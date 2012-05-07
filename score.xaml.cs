@@ -49,6 +49,7 @@ namespace GrandAStudio.Filmia
 
         private void PhoneApplicationPage_BackKeyPress(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            App.CurrentApp.SetCurrentBackGroundSound("menu.mp3", "1");
             //NavigationService.
             //NavigationService.Navigate(new Uri(@"/MainPage.xaml", UriKind.Relative));
         }

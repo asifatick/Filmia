@@ -13,6 +13,11 @@ using Microsoft.Phone.Controls;
 using System.Windows.Data;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Media;
+using System.IO;
+
 
 namespace GrandAStudio.Filmia
 {
@@ -31,13 +36,22 @@ namespace GrandAStudio.Filmia
             dtMain.Tick += new EventHandler(dt_Tick);
 
             dtAnswerState.Interval = new TimeSpan(0, 0, 0, 0, 750); // .75 Seconds
+            dtSound.Interval = new TimeSpan(0, 0, 0, 0, 150);
             dtAnswerState.Tick += new EventHandler(dtAnswerState_Tick);
+            dtSound.Tick += new EventHandler(dtSound_Tick);
+
             this.Loaded += new RoutedEventHandler(GamePage_Loaded);
+        }
+
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            NavigationService.RemoveBackEntry();
+            base.OnNavigatedTo(e);
         }
         private Questions q;
         DispatcherTimer dtMain = new DispatcherTimer();
         DispatcherTimer dtAnswerState = new DispatcherTimer();
-
+        DispatcherTimer dtSound = new DispatcherTimer();
         private Questions GetRandomQuestion()
         { 
             Random r = new Random();
@@ -57,7 +71,11 @@ namespace GrandAStudio.Filmia
 
 
         }
-
+        private void SoundPlayer_MediaOpened(object sender, RoutedEventArgs e)
+        {
+            gamePlayer.Play();
+           
+        }
         // Load data for the ViewModel Items
         private void GamePage_Loaded(object sender, RoutedEventArgs e)
         {
@@ -107,7 +125,12 @@ namespace GrandAStudio.Filmia
                 dtAnswerState.Stop();
                 NextQuestion();
             }
-
+            void dtSound_Tick(object sender, EventArgs e)
+            {
+                dtSound.Stop();
+                //App.CurrentApp.ContinuePlaying(t, tr);
+            }
+        
             private void NextQuestion()
             {
                 dtMain.Start();
@@ -123,6 +146,7 @@ namespace GrandAStudio.Filmia
                 {
                     UpdateAndShowScore();
                     dtMain.Stop();
+                    App.CurrentApp.SetCurrentBackGroundSound("score_screen.mp3", "1");
                     NavigationService.Navigate(new Uri(@"/score.xaml?target=2",UriKind.Relative));
                 }
             }
@@ -131,9 +155,8 @@ namespace GrandAStudio.Filmia
             {
                
             }
-
-        
-
+           
+            
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             
@@ -150,21 +173,21 @@ namespace GrandAStudio.Filmia
                      App.ViewModel.CurrentQuestion.IsAnswered = 1;
 
                      ((BitmapImage)imgResultState.Source).UriSource = new Uri(@"Images/happy.png", UriKind.Relative);
-                     //DataContext = GetRandomQuestion();
-                     //App.ViewModel.CurrentQuestion= App.ViewModel.GetRandomQuestion();
-                     //App.ViewModel.GScore.TotalRightAnswers++;
-                     App.ViewModel.GameRightAnswer++;
                     
+                     App.ViewModel.GameRightAnswer++;
+
+                     App.CurrentApp.PlaySound("ButtonPressed.wav");
                  }
-                 else { //App.ViewModel.GScore.TotlaWrongAnswers++;
+                 else { 
                  App.ViewModel.GameWrongAnswer++;
+                 App.CurrentApp.PlaySound("wronganswer.wav");
                  }
 
               
 
                 dtAnswerState.Start();
                 dtMain.Stop();
-               // startCountdown();
+               
                  App.ViewModel.Save();
                 
             }
@@ -206,7 +229,7 @@ namespace GrandAStudio.Filmia
                     if (targetItem.CommandParameter  ==ItemText)
                     {
                         (((System.Windows.Media.Imaging.BitmapImage)(((System.Windows.Controls.Image)(targetItem.Content)).Source))).UriSource = new Uri(@"Images/answerpressed.png",UriKind.Relative);
-                        //targetItem.Foreground = new SolidColorBrush(Colors.Green);
+                        
                         
                         return;
                     }
@@ -236,6 +259,17 @@ namespace GrandAStudio.Filmia
         private void PhoneApplicationPage_BackKeyPress(object sender, System.ComponentModel.CancelEventArgs e)
         {
             dtMain.Stop();
+            App.CurrentApp.SetCurrentBackGroundSound("menu.mp3", "1");
+        }
+
+        private void SoundPlayer_MediaEnded(object sender, RoutedEventArgs e)
+        {
+            //App.CurrentApp.ContinuePlaying(t, tr);
+        }
+
+        private void gamePlayer_MediaOpened(object sender, RoutedEventArgs e)
+        {
+            gamePlayer.Play();
         }
     }
 

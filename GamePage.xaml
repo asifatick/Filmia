@@ -94,11 +94,11 @@
                 <ImageBrush ImageSource="Images\background.png"/>
             </Canvas.Background>-->
         
-        <TextBlock Text="{Binding CurrentScore}" Name="txtScore" TextWrapping="Wrap" Grid.Column="0" Grid.Row="0" Margin="15,15,0,0" Style="{StaticResource PhoneTextSubtleStyle}" Foreground="#FF030000" Height="28" Width="82" HorizontalAlignment="Left" />
-        <TextBlock Text="{Binding Timer}" Name="txtTimeLeft" TextWrapping="Wrap"  Grid.Column="0" Grid.Row="1" Margin="15,15,0,0" Style="{StaticResource PhoneTextSubtleStyle}" Foreground="#FF030000" Height="40" Width="46" HorizontalAlignment="Left"  />
+        <TextBlock Text="{Binding CurrentScore}" Name="txtScore" TextWrapping="Wrap" Margin="20,15,0,18" Style="{StaticResource PhoneTextSubtleStyle}" Foreground="#FF030000" Width="64" HorizontalAlignment="Left" FontWeight="Bold" FontSize="30" TextAlignment="Center" />
+        <TextBlock Text="{Binding Timer}" Name="txtTimeLeft" TextWrapping="Wrap" Grid.Row="1" Margin="20,0,0,46" Style="{StaticResource PhoneTextSubtleStyle}" Foreground="#FF030000" Height="40" Width="64" HorizontalAlignment="Left" TextAlignment="Center" FontSize="30" FontWeight="Bold" />
         <Image Height="160"  HorizontalAlignment="Left" Name="imgResultState" Stretch="Fill" Source=" test" Width="160"    Grid.Column="1" Grid.Row="0" Grid.RowSpan="2"/>
 
-
+        <MediaElement x:Name="gamePlayer" AutoPlay="True" Visibility="Collapsed" MediaOpened="gamePlayer_MediaOpened" MediaEnded="SoundPlayer_MediaEnded" />
 
 
 
@@ -117,4 +117,5 @@
         <Image Grid.Column="1" Grid.Row="4" Name="imgSkip" Source=" Images\skip.png"  Tap="imgSkip_Tap" Height="50" Width="72"  Margin="236,0,0,-4" />
         <!--</Canvas>-->
     </Grid>
+   
 </phone:PhoneApplicationPage>

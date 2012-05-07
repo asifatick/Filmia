@@ -79,7 +79,7 @@ namespace GrandAStudio.Filmia
         private void StartGame(int p)
         {
             App.ViewModel.CurrentCat = p;
-            NavigationService.Navigate(new Uri("/GamePage.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Uri("/TipsPage.xaml", UriKind.Relative));
         }
 
         private void btnCAt90_Tap(object sender, GestureEventArgs e)

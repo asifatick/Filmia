@@ -49,8 +49,8 @@
                     Name="btnUnlock"
                     Source="Images\lockfinal.png"
                     Stretch="Fill" Width="96" Tap="btnUnlock_Tap" />
-            <RadioButton Content="Sound On" HorizontalAlignment="Left" Margin="86,58,0,0" Name="rbSoundOn" VerticalAlignment="Top" GroupName="sound" IsChecked="True" />
-            <RadioButton Content="Sound Off" HorizontalAlignment="Left" Margin="86,136,0,0" Name="rbSoundOff" VerticalAlignment="Top" GroupName="sound" />
+            <RadioButton Content="Sound On" HorizontalAlignment="Left" Margin="86,58,0,0" Name="rbSoundOn" VerticalAlignment="Top" GroupName="sound" IsChecked="false" Checked="rbSoundOn_Checked" />
+            <RadioButton Content="Sound Off" HorizontalAlignment="Left" Margin="86,136,0,0" Name="rbSoundOff" VerticalAlignment="Top" GroupName="sound" Checked="rbSoundOff_Checked" />
         </Grid>
     </Grid>
  
