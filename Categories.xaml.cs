@@ -28,45 +28,50 @@ namespace GrandAStudio.Filmia
         {
             base.OnNavigatedTo(e);
 
-            checkButtonState(btnCAt00, 1, btnCAt00_Tap);
-            
-            checkButtonState(btnCAt90, 3, btnCAt90_Tap);
+            checkButtonState(btnCAt00, txtCAt00, 1, btnCAt00_Tap);
 
-            checkButtonState(btnCAt80, 2, btnCAt80_Tap);
+            checkButtonState(btnCAt90, txtCAt90, 3, btnCAt90_Tap);
 
-            checkButtonState(btnCAtQT, 4, btnCAtQT_Tap);
+            checkButtonState(btnCAt80, txtCAt80, 2, btnCAt80_Tap);
 
-            checkButtonState(btnCAtStars, 9, btnCAtStars_Tap);
-           
-            checkButtonState(btnCAtRan, 8, btnCAtRan_Tap);            
+            checkButtonState(btnCAtQT, txtCAtQT, 4, btnCAtQT_Tap);
 
-            checkButtonState(btnCAtRoles, 5, btnCAtRoles_Tap);
+            checkButtonState(btnCAtStars, txtCAtStars, 9, btnCAtStars_Tap);
 
-            checkButtonState(btnCAtOscars,7, btnCAtOscars_Tap);
+            checkButtonState(btnCAtRan, txtCAtRan, 8, btnCAtRan_Tap);
 
-            checkButtonState(btnCAtDirectors, 10, btnCAtDirectors_Tap);
+            checkButtonState(btnCAtRoles, txtCAtRoles, 5, btnCAtRoles_Tap);
 
-            checkButtonState(btnCAtAC, 11, btnCAtAC_Tap);
+            checkButtonState(btnCAtOscars, txtCAtOscars, 7, btnCAtOscars_Tap);
 
-            checkButtonState(btnCAtHS, 12, btnCAtHS_Tap);
+            checkButtonState(btnCAtDirectors, txtCAtDirectors, 10, btnCAtDirectors_Tap);
 
-            checkButtonState(btnCAtAdvanced, 13, btnCAtAdvanced_Tap);
+            checkButtonState(btnCAtAC, txtCAtAC, 11, btnCAtAC_Tap);
 
-            checkButtonState(btnCAtOldies, 6, btnCAtOldies_Tap);
+            checkButtonState(btnCAtHS, txtCAtHS, 12, btnCAtHS_Tap);
+
+            checkButtonState(btnCAtAdvanced, txtCAtAdvanced, 13, btnCAtAdvanced_Tap);
+
+            checkButtonState(btnCAtOldies, txtCAtOldies, 6, btnCAtOldies_Tap);
 
         }
 
-        private void checkButtonState(Image btn, int p, EventHandler<GestureEventArgs> evt)
+        private void checkButtonState(Image btn, TextBlock tb, int p, EventHandler<GestureEventArgs> evt)
         {
             Categories cat = db.Categories.Where(c => c.IID == (long)p).FirstOrDefault();
+            SolidColorBrush sb = new SolidColorBrush();
             if (cat.IsUnlocked == 1)
             {
                 btn.Tap +=new EventHandler<GestureEventArgs>(evt);
                 ((BitmapImage)btn.Source).UriSource = new Uri(@"Images/category blue.png", UriKind.Relative);
+                sb.Color = Color.FromArgb(100, 00, 0, 255);
+               
                 if (cat.IsCompleted == 1)
                 {
                     ((BitmapImage)btn.Source).UriSource = new Uri(@"Images/category green.png", UriKind.Relative);
+                    sb.Color = Color.FromArgb(100, 00, 255, 00);
                 }
+                tb.Foreground = sb;
             }
         }
 

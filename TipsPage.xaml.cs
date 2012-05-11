@@ -23,7 +23,7 @@ namespace GrandAStudio.Filmia
             DataContext = App.ViewModel.GetRandomTips();
            
 
-            dtMain.Interval = new TimeSpan(0, 0, 0, 0, 2000); // 1 Seconds
+            dtMain.Interval = new TimeSpan(0, 0, 0, 0, 4000); // 4 Seconds
             dtMain.Tick += new EventHandler(dt_Tick);
 
             this.Loaded += new RoutedEventHandler(TipsPage_Loaded);

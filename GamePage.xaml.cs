@@ -111,6 +111,7 @@ namespace GrandAStudio.Filmia
                    // App.ViewModel.GScore.TotlaWrongAnswers++;
                     App.ViewModel.GameWrongAnswer++;
                     App.ViewModel.Save();
+                    App.CurrentApp.PlaySound("wronganswer.wav");
                     dtAnswerState.Start();
                     dtMain.Stop();
                    // NextQuestion();
@@ -253,6 +254,7 @@ namespace GrandAStudio.Filmia
             App.ViewModel.GamePasses++;
             App.ViewModel.GameWrongAnswer ++;
             App.ViewModel.Save();
+            App.CurrentApp.PlaySound("wronganswer.wav");
             dtAnswerState.Start();
         }
 

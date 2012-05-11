@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2009/deployment" AppPlatformVersion="7.1">
-  <App xmlns="" ProductID="{b5021e9e-546a-41b7-b8e2-2d22d9a81fa1}" Title="GrandAStudio.Filmia" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="GrandAStudio.Filmia author" Description="Sample description" Publisher="GrandAStudio.Filmia">
-    <IconPath IsRelative="true" IsResource="false">ApplicationIcon.png</IconPath>
+  <App xmlns="" ProductID="{b5021e9e-546a-41b7-b8e2-2d22d9a81fa1}" Title="Filmia" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="GrandAStudio.Filmia author" Description="Sample description" Publisher="GrandAStudio.Filmia">
+    <IconPath IsRelative="true" IsResource="false">icons\62.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_GAMERSERVICES" />
       <Capability Name="ID_CAP_IDENTITY_DEVICE" />
@@ -27,9 +27,9 @@
     <Tokens>
       <PrimaryToken TokenID="GrandAStudio.FilmiaToken" TaskName="_default">
         <TemplateType5>
-          <BackgroundImageURI IsRelative="true" IsResource="false">Background.png</BackgroundImageURI>
+          <BackgroundImageURI IsRelative="true" IsResource="false">SplashScreenImage.jpg</BackgroundImageURI>
           <Count>0</Count>
-          <Title>GrandAStudio.Filmia</Title>
+          <Title>Filmia</Title>
         </TemplateType5>
       </PrimaryToken>
     </Tokens>

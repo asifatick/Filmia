@@ -9,6 +9,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:local="clr-namespace:GrandAStudio.Filmia" 
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
+   d:DataContext="{d:DesignData SampleData/MainViewModelSampleData.xaml}"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -41,35 +42,34 @@
                     </Grid.RowDefinitions>
                     <Image Grid.Column="1"  HorizontalAlignment="Left" Margin="0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Source="Images/filmia.png" Width="Auto" />
                     <Image Grid.Row="1" HorizontalAlignment="Left" Margin="20,70,0,0" Name="image2" Stretch="None" VerticalAlignment="Top" Source="/GrandAStudio.Filmia;component/Images/trophy.png" />
-            <TextBlock Grid.Row="1" Height="80" HorizontalAlignment="Left" Margin="203,96,0,0" Name="txtScore" Text="{Binding CurrentScore}" VerticalAlignment="Top" Width="100" Foreground="Black" FontWeight="ExtraBold" FontSize="56" TextAlignment="Center" />
+            <TextBlock Grid.Row="1" HorizontalAlignment="Left" Margin="203,96,0,116" Name="txtScore" Text="{Binding CurrentScore}" Width="100" Foreground="Black" FontWeight="ExtraBold" FontSize="56" TextAlignment="Center" />
             <Image Grid.Row="2" Height="266" HorizontalAlignment="Left" Margin="0,49,0,0" Name="image3" Stretch="Fill" VerticalAlignment="Top" Width="480" Source="/GrandAStudio.Filmia;component/Images/score%20bg.png" />
-            <TextBlock Grid.Row="2" Height="30" HorizontalAlignment="Left" Margin="81,101,0,0" Name="lblTotal" Text="Career Points" VerticalAlignment="Top" Foreground="Black" />
-            <TextBlock Foreground="Black" Height="30" HorizontalAlignment="Left" Margin="83,153,0,0" Name="lblWrongAnswer" Text="Wrong Answers" VerticalAlignment="Top" Grid.Row="2" />
-            <TextBlock Foreground="Black" Height="30" HorizontalAlignment="Left" Margin="81,127,0,0" Name="lblRAnswer" Text="Correct Answers" VerticalAlignment="Top" Grid.Row="2" />
-            <TextBlock Foreground="Black" HorizontalAlignment="Left" Margin="333,101,0,185" Name="textBlock1" Text="Total Games" Grid.Row="2" />
+            <TextBlock Grid.Row="2" Height="30" HorizontalAlignment="Left" Margin="75,101,0,0" Name="lblTotal" Text="Career Points" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" />
+            <TextBlock Foreground="Black" Height="30" HorizontalAlignment="Left" Margin="77,153,0,0" Name="lblWrongAnswer" Text="Wrong Answers" VerticalAlignment="Top" Grid.Row="2" FontWeight="Bold" />
+            <TextBlock Foreground="Black" Height="30" HorizontalAlignment="Left" Margin="75,127,0,0" Name="lblRAnswer" Text="Correct Answers" VerticalAlignment="Top" Grid.Row="2" FontWeight="Bold" />
+            <TextBlock Foreground="Black" HorizontalAlignment="Left" Margin="293,101,0,185" Name="textBlock1" Text="Total Games" Grid.Row="2" FontWeight="Bold" />
             <TextBlock Foreground="Black" Height="30" HorizontalAlignment="Left" Margin="107,191,0,0" Name="textBlock2" Text="You Have Unlocked a New Category." VerticalAlignment="Top" Grid.Row="2" FontWeight="Bold" />
-            <TextBlock Foreground="Black" Height="30" HorizontalAlignment="Left" Margin="333,127,0,0" Name="textBlock3" Text="Total Passes" VerticalAlignment="Top" Grid.Row="2" />
-            <TextBlock FontWeight="Bold" Foreground="Black" Height="30" HorizontalAlignment="Left" Margin="193,61,0,0" Name="textBlock4" Text="Career Stats" VerticalAlignment="Top" Grid.Row="2" />
-            <HyperlinkButton BorderBrush="{x:Null}" Height="72" Margin="270,238,115,0" Name="btnFacebook" NavigateUri="Http://www.facebook.com/Ganda.Studios" TargetName="_blank" VerticalAlignment="Top" Grid.Row="2">
+            <TextBlock Foreground="Black" Height="30" HorizontalAlignment="Left" Margin="293,127,0,0" Name="textBlock3" Text="Total Passes" VerticalAlignment="Top" Grid.Row="2" FontWeight="Bold" />
+            <HyperlinkButton BorderBrush="{x:Null}" Height="72" Margin="270,230,115,0" Name="btnFacebook" NavigateUri="Http://www.facebook.com/Ganda.Studios" TargetName="_blank" VerticalAlignment="Top" Grid.Row="2">
                 <HyperlinkButton.Background>
                     <ImageBrush ImageSource="/GrandAStudio.Filmia;component/Images/FaceBook_128x128.png" />
                 </HyperlinkButton.Background>
             </HyperlinkButton>
-            <HyperlinkButton BorderBrush="{x:Null}" Height="72" HorizontalAlignment="Right" Margin="0,238,20,0" Name="btnTwitter" NavigateUri="Http://twitter.com/Ganda_Studios" TargetName="_blank" VerticalAlignment="Top" Width="72" Grid.Row="2">
+            <HyperlinkButton BorderBrush="{x:Null}" Height="72" HorizontalAlignment="Right" Margin="0,230,20,0" Name="btnTwitter" NavigateUri="Http://twitter.com/Ganda_Studios" TargetName="_blank" VerticalAlignment="Top" Width="84" Grid.Row="2">
                 <HyperlinkButton.Background>
-                    <ImageBrush ImageSource="/GrandAStudio.Filmia;component/Images/twitter_newbird_blue.png" />
+                    <ImageBrush ImageSource="/GrandAStudio.Filmia;component/Images/twitter_newbird_blue2.png" Stretch="UniformToFill" />
                 </HyperlinkButton.Background>
             </HyperlinkButton>
-            <TextBlock Foreground="Black" HorizontalAlignment="Left" Margin="20,101,0,185" Name="txtTotal" Text="{Binding Path= GScore.Total }" Grid.Row="2" Width="57" TextAlignment="Right" />
-            <TextBlock Foreground="Black" Height="30" HorizontalAlignment="Left" Margin="20,153,0,0" Name="txtWA"  Text="{Binding Path= GScore.TotlaWrongAnswers }" VerticalAlignment="Top" Grid.Row="2" Width="57" TextAlignment="Right" />
-            <TextBlock Foreground="Black" HorizontalAlignment="Left" Margin="20,127,0,159" Name="txtCA"  Text="{Binding Path= GScore.TotalRightAnswers }" Grid.Row="2" Width="57" TextAlignment="Right" />
-            <TextBlock Foreground="Black" Height="30" HorizontalAlignment="Left" Margin="255,101,0,0" Name="txtTG"  Text="{Binding Path= GScore.TotalGames }" VerticalAlignment="Top" Grid.Row="2" Width="67" TextAlignment="Right" />
-            <TextBlock Foreground="Black" Height="30" HorizontalAlignment="Left" Margin="255,127,0,0" Name="txtPasses" Text="{Binding Path= GScore.TotalPasses }" VerticalAlignment="Top" Grid.Row="2" Width="67" TextAlignment="Right" />
+            <TextBlock Foreground="Black" HorizontalAlignment="Left" Margin="14,101,0,185" Name="txtTotal" Text="{Binding Path= GScore.Total }" Grid.Row="2" Width="57" TextAlignment="Right" FontWeight="Bold" />
+            <TextBlock Foreground="Black" Height="30" HorizontalAlignment="Left" Margin="14,153,0,0" Name="txtWA"  Text="{Binding Path= GScore.TotlaWrongAnswers }" VerticalAlignment="Top" Grid.Row="2" Width="57" TextAlignment="Right" FontWeight="Bold" />
+            <TextBlock Foreground="Black" HorizontalAlignment="Left" Margin="14,127,0,159" Name="txtCA"  Text="{Binding Path= GScore.TotalRightAnswers }" Grid.Row="2" Width="57" TextAlignment="Right" FontWeight="Bold" />
+            <TextBlock Foreground="Black" HorizontalAlignment="Left" Margin="215,101,0,185" Name="txtTG"  Text="{Binding Path= GScore.TotalGames }" Grid.Row="2" Width="67" TextAlignment="Right" FontWeight="Bold" />
+            <TextBlock Foreground="Black" Height="30" HorizontalAlignment="Left" Margin="215,127,0,0" Name="txtPasses" Text="{Binding Path= GScore.TotalPasses }" VerticalAlignment="Top" Grid.Row="2" Width="67" TextAlignment="Right" FontWeight="Bold" />
             <TextBlock FontSize="56" FontWeight="ExtraBold" Foreground="Black" Height="80" HorizontalAlignment="Left" Margin="297,96,0,0" Name="textBlock5" Text="Points" VerticalAlignment="Top" Width="200" Grid.Row="1" />
-            <TextBlock Foreground="Black" Height="30" HorizontalAlignment="Left" Margin="299,222,0,0" Name="textBlock6" Text="Wrong Answers" VerticalAlignment="Top" Grid.Row="1" />
-            <TextBlock Foreground="Black" Height="30" HorizontalAlignment="Left" Margin="299,184,0,0" Name="textBlock7" Text="Correct Answers" VerticalAlignment="Top" Grid.Row="1" />
-            <TextBlock Foreground="Black" Height="30" HorizontalAlignment="Left" Margin="231,0,0,40" Name="textBlock8" Text="{Binding Path=GameWrongAnswer}" VerticalAlignment="Bottom" Width="57" Grid.Row="1" TextAlignment="Right" />
-            <TextBlock Foreground="Black" HorizontalAlignment="Left" Margin="231,184,0,78" Name="textBlock9" Text="{Binding Path=GameRightAnswer}" Width="57" Grid.Row="1" FlowDirection="LeftToRight" TextAlignment="Right" />
+            <TextBlock Foreground="Black" Height="30" HorizontalAlignment="Left" Margin="271,222,0,0" Name="textBlock6" Text="Wrong Answers" VerticalAlignment="Top" Grid.Row="1" FontWeight="Bold" />
+            <TextBlock Foreground="Black" Height="30" HorizontalAlignment="Left" Margin="271,184,0,0" Name="textBlock7" Text="Correct Answers" VerticalAlignment="Top" Grid.Row="1" FontWeight="Bold" />
+            <TextBlock Foreground="Black" Height="30" HorizontalAlignment="Left" Margin="203,0,0,40" Name="textBlock8" Text="{Binding Path=GameWrongAnswer}" VerticalAlignment="Bottom" Width="57" Grid.Row="1" TextAlignment="Right" FontWeight="Bold" />
+            <TextBlock Foreground="Black" HorizontalAlignment="Left" Margin="203,184,0,78" Name="textBlock9" Text="{Binding Path=GameRightAnswer}" Width="57" Grid.Row="1" FlowDirection="LeftToRight" TextAlignment="Right" FontWeight="Bold" />
         </Grid>
           
     </Grid>
