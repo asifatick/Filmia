@@ -87,12 +87,19 @@ namespace GrandAStudio.Filmia
             }
 
         }
-
+        public SoundState CurrentSoundState
+        {
+            get
+            {
+                return _currentSound.State;
+            }
+        }
         
         private SoundEffectInstance _currentSound = null;
-        public void PlaySound(string source)
+        public bool PlaySound(string source)
         {
             SoundEffect se;
+           
             if (_currentSound != null)
             {
                 _currentSound.Stop();
@@ -110,7 +117,9 @@ namespace GrandAStudio.Filmia
 
                 _currentSound = se.CreateInstance();
                 _currentSound.Play();
+               
             }
+            return true;
         }
         string _CurrentBGSound = "";
         public  void SetCurrentBackGroundSound( string _fileName, string title )

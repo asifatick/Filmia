@@ -192,10 +192,18 @@
     <Resource Include="Images\PLAY.png" />
     <Resource Include="Images\STATS.png" />
     <Resource Include="Images\unlock - play when code is unlocked.mp3" />
-    <Resource Include="icons\173.png" />
-    <Resource Include="icons\200.png" />
-    <Resource Include="icons\62.png" />
-    <Resource Include="icons\99.png" />
+    <Content Include="icons\173.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="icons\200.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="icons\62.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="icons\99.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Resource Include="Images\windows company logo.png" />
     <Resource Include="Images\twitter_newbird_blue2.png" />
     <Content Include="sounds\ButtonPressed.wav" />

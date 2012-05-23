@@ -117,7 +117,7 @@
                     
                     Name="btnCAtAC"
                     Source="Images\category grey.png"  />
-        <TextBlock  Name="txtCAtAC" FontWeight="Bold" TextWrapping="Wrap"  Grid.Column="1" Grid.Row="5"  Text="Animation And Comedy" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource PhoneTextSmallStyle}" TextAlignment="Center" />
+        <TextBlock  Name="txtCAtAC" FontWeight="Bold" TextWrapping="Wrap"  Grid.Column="1" Grid.Row="5"  Text="Animation And Comedy" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource PhoneTextSmallStyle}" TextAlignment="Center" FontSize="15" />
 
         <Image Grid.Column="2" Grid.Row="5"
                    

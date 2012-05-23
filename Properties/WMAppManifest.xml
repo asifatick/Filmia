@@ -27,7 +27,7 @@
     <Tokens>
       <PrimaryToken TokenID="GrandAStudio.FilmiaToken" TaskName="_default">
         <TemplateType5>
-          <BackgroundImageURI IsRelative="true" IsResource="false">SplashScreenImage.jpg</BackgroundImageURI>
+          <BackgroundImageURI IsRelative="true" IsResource="false">icons\173.png</BackgroundImageURI>
           <Count>0</Count>
           <Title>Filmia</Title>
         </TemplateType5>

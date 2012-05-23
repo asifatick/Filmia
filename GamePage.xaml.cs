@@ -45,9 +45,23 @@ namespace GrandAStudio.Filmia
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
+            if (!App.ViewModel.IsDataLoaded)
+            {
+
+                App.ViewModel.LoadData((int)App.ViewModel.CurrentCat);
+
+                //textBlock1.Text  = App.ViewModel.CurrentQuestion.Question;
+                //lstAnswers.ItemsSource = App.ViewModel.CurrentQuestion.Answers;
+            }
+            App.ViewModel.GetRandomQuestion();
+            DataContext = App.ViewModel;
+
+            App.ViewModel.ResetGame();
+            startCountdown();
             NavigationService.RemoveBackEntry();
             base.OnNavigatedTo(e);
         }
+        bool isScreenLocked = false;
         private Questions q;
         DispatcherTimer dtMain = new DispatcherTimer();
         DispatcherTimer dtAnswerState = new DispatcherTimer();
@@ -79,20 +93,21 @@ namespace GrandAStudio.Filmia
         // Load data for the ViewModel Items
         private void GamePage_Loaded(object sender, RoutedEventArgs e)
         {
-            App.ViewModel.ResetGame();
-            if (!App.ViewModel.IsDataLoaded)
-            {
+            //if (!App.ViewModel.IsDataLoaded)
+            //{
 
-                App.ViewModel.LoadData((int)App.ViewModel.CurrentCat);
+            //    App.ViewModel.LoadData((int)App.ViewModel.CurrentCat);
                
-                //textBlock1.Text  = App.ViewModel.CurrentQuestion.Question;
-              //lstAnswers.ItemsSource = App.ViewModel.CurrentQuestion.Answers;
-            }
-            App.ViewModel.GetRandomQuestion();
-            // DataContext = GetRandomQuestion();
+            //    //textBlock1.Text  = App.ViewModel.CurrentQuestion.Question;
+            //  //lstAnswers.ItemsSource = App.ViewModel.CurrentQuestion.Answers;
+            //}
+            //App.ViewModel.GetRandomQuestion();
+            //// DataContext = GetRandomQuestion();
            
-            DataContext = App.ViewModel;
-            startCountdown();
+            //DataContext = App.ViewModel;
+
+            //App.ViewModel.ResetGame();
+            //startCountdown();
         }
        
         public void startCountdown()
@@ -111,6 +126,7 @@ namespace GrandAStudio.Filmia
                    // App.ViewModel.GScore.TotlaWrongAnswers++;
                     App.ViewModel.GameWrongAnswer++;
                     App.ViewModel.Save();
+                   
                     App.CurrentApp.PlaySound("wronganswer.wav");
                     dtAnswerState.Start();
                     dtMain.Stop();
@@ -124,6 +140,7 @@ namespace GrandAStudio.Filmia
             {
                 ((BitmapImage)imgResultState.Source).UriSource = new Uri(@"", UriKind.Relative);
                 dtAnswerState.Stop();
+                isScreenLocked = false;
                 NextQuestion();
             }
             void dtSound_Tick(object sender, EventArgs e)
@@ -160,37 +177,47 @@ namespace GrandAStudio.Filmia
             
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
-            if (e.AddedItems.Count > 0 && App.ViewModel.Timer > 0)
+            if (!isScreenLocked)
             {
-                Answer a = (Answer)e.AddedItems[0];
-                App.ViewModel.CurrentScore += a.IsCorrect;
-                a.isClicked = 1;
-                 SearchVisualTreeForSelectedButton(this.lstAnswers, a.answer);
-
-                 ((BitmapImage)imgResultState.Source).UriSource = new Uri(@"Images/sad.png", UriKind.Relative);
-                 if (a.IsCorrect == 3)
-                 {
-                     App.ViewModel.CurrentQuestion.IsAnswered = 1;
-
-                     ((BitmapImage)imgResultState.Source).UriSource = new Uri(@"Images/happy.png", UriKind.Relative);
-                    
-                     App.ViewModel.GameRightAnswer++;
-
-                     App.CurrentApp.PlaySound("ButtonPressed.wav");
-                 }
-                 else { 
-                 App.ViewModel.GameWrongAnswer++;
-                 App.CurrentApp.PlaySound("wronganswer.wav");
-                 }
-
-              
-
-                dtAnswerState.Start();
-                dtMain.Stop();
-               
-                 App.ViewModel.Save();
                 
+                if (e.AddedItems.Count > 0 && App.ViewModel.Timer > 0)
+                {
+                    isScreenLocked = true;
+                    Answer a = (Answer)e.AddedItems[0];
+                    App.ViewModel.CurrentScore += a.IsCorrect;
+                    a.isClicked = 1;
+                    SearchVisualTreeForSelectedButton(this.lstAnswers, a.answer);
+
+                    ((BitmapImage)imgResultState.Source).UriSource = new Uri(@"Images/sad.png", UriKind.Relative);
+                    if (a.IsCorrect == 3)
+                    {
+                        App.ViewModel.CurrentQuestion.IsAnswered = 1;
+
+                        ((BitmapImage)imgResultState.Source).UriSource = new Uri(@"Images/happy.png", UriKind.Relative);
+
+                        App.ViewModel.GameRightAnswer++;
+
+                        App.CurrentApp.PlaySound("ButtonPressed.wav");
+                    }
+                    else
+                    {
+                        App.ViewModel.GameWrongAnswer++;
+                        App.CurrentApp.PlaySound("ButtonPressed.wav");
+                        while (App.CurrentApp.CurrentSoundState == SoundState.Playing)
+                        {
+
+                        }
+                        App.CurrentApp.PlaySound("wronganswer.wav");
+                    }
+
+
+
+                    dtAnswerState.Start();
+                    dtMain.Stop();
+
+                    App.ViewModel.Save();
+
+                }
             }
             
         }
@@ -254,6 +281,11 @@ namespace GrandAStudio.Filmia
             App.ViewModel.GamePasses++;
             App.ViewModel.GameWrongAnswer ++;
             App.ViewModel.Save();
+            App.CurrentApp.PlaySound("ButtonPressed.wav");
+            while (App.CurrentApp.CurrentSoundState == SoundState.Playing)
+            {
+
+            }
             App.CurrentApp.PlaySound("wronganswer.wav");
             dtAnswerState.Start();
         }

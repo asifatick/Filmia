@@ -63,6 +63,7 @@ namespace GrandAStudio.Filmia
             if (cat.IsUnlocked == 1)
             {
                 btn.Tap +=new EventHandler<GestureEventArgs>(evt);
+               tb.Tap += new EventHandler<GestureEventArgs>(evt);
                 ((BitmapImage)btn.Source).UriSource = new Uri(@"Images/category blue.png", UriKind.Relative);
                 sb.Color = Color.FromArgb(100, 00, 0, 255);
                
