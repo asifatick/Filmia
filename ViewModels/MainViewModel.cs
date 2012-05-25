@@ -234,7 +234,7 @@ namespace GrandAStudio.Filmia
 
             randomIndex = r.Next(1, dbcontext.Tips.Count());
 
-            Tips tips =  dbcontext.Tips.Where(t => t.IID == 1).FirstOrDefault();
+            Tips tips =  dbcontext.Tips.Where(t => t.IID == randomIndex).FirstOrDefault();
             string tp = tips.Text;
             Tips tipNew = new Tips();
             tipNew.Text = @tp.Replace("\\r\\n", Environment.NewLine);
