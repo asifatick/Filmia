@@ -234,7 +234,11 @@ namespace GrandAStudio.Filmia
 
             randomIndex = r.Next(1, dbcontext.Tips.Count());
 
-            return dbcontext.Tips.Where(t => t.IID == randomIndex).FirstOrDefault();
+            Tips tips =  dbcontext.Tips.Where(t => t.IID == 1).FirstOrDefault();
+            string tp = tips.Text;
+            Tips tipNew = new Tips();
+            tipNew.Text = @tp.Replace("\\r\\n", Environment.NewLine);
+            return tipNew;
         }
         public Questions GetRandomQuestion()
         {

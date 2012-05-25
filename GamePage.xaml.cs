@@ -154,7 +154,7 @@ namespace GrandAStudio.Filmia
                 dtMain.Start();
                 App.ViewModel.Timer = 10;
              
-                if (App.ViewModel.questionCount < 15)
+                if (App.ViewModel.questionCount < 11 )
                 {
                     App.ViewModel.GetRandomQuestion();
                     //App.ViewModel.GScore.TotalQuestions++;
