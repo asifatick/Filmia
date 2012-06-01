@@ -93,7 +93,10 @@ namespace GrandAStudio.Filmia
         {
             get
             {
+                if(_currentSound != null)
                 return _currentSound.State;
+
+                return SoundState.Stopped;
             }
         }
         
