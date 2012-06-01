@@ -51,7 +51,7 @@ namespace GrandAStudio.Filmia
         {
             App.CurrentApp.SetCurrentBackGroundSound("menu.mp3", "1");
             //NavigationService.
-            //NavigationService.Navigate(new Uri(@"/MainPage.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Uri(@"/MenuPage.xaml", UriKind.Relative));
         }
     }
 }
