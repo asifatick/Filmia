@@ -61,7 +61,7 @@ namespace GrandAStudio.Filmia
             else
             {
                 App.ViewModel.IsSoundsOn = true;
-                App.CurrentApp.SetCurrentBackGroundSound("menu.mp3","1");
+                App.CurrentApp.SetCurrentBackGroundSound("menu.mp3","1",true);
                 ((BitmapImage)btnSounds.Source).UriSource = new Uri(@"Images/mainscreensoundon.png", UriKind.Relative);
             }
         }
@@ -75,7 +75,7 @@ namespace GrandAStudio.Filmia
         {
             App.ViewModel.IsSoundsOn = true;
             if(!App.CurrentApp.IsBgSoundPlaying )
-                App.CurrentApp.SetCurrentBackGroundSound("menu.mp3", "1");
+                App.CurrentApp.SetCurrentBackGroundSound("menu.mp3", "1",true);
         }
 
         private void rbSoundOff_Checked(object sender, RoutedEventArgs e)

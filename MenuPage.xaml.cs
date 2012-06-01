@@ -13,6 +13,7 @@ using Microsoft.Phone.Controls;
 using System.Windows.Threading;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 
 namespace GrandAStudio.Filmia
 {
@@ -64,9 +65,14 @@ namespace GrandAStudio.Filmia
          
             base.OnNavigatedTo(e);
         }
+        
         protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
         {
             App.CurrentApp.StopbackgroundSound();
+            if (App.CurrentApp.phoneMediaState == Microsoft.Xna.Framework.Media.MediaState.Playing)
+            {
+                MediaPlayer.Resume();
+            }
             //App.CurrentApp.CloseBGPlayer();
             base.OnBackKeyPress(e);
         }

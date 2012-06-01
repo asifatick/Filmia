@@ -21,7 +21,7 @@
     <Tasks>
       <DefaultTask Name="_default" NavigationPage="MainPage.xaml" />
       <ExtendedTask Name="BackgroundTask">
-        <BackgroundServiceAgent Specifier="AudioPlayerAgent" Name="Ganda.Audio" Source="Ganda.Audio" Type="Ganda.Audio.AudioPlayer" />
+        
       </ExtendedTask>
     </Tasks>
     <Tokens>

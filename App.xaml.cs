@@ -17,12 +17,14 @@ using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using System.Windows.Resources;
+using Microsoft.Xna.Framework.Media;
 namespace GrandAStudio.Filmia
 {
     public partial class App : Application
     {
         private static MainViewModel viewModel = null;
 
+        public MediaState phoneMediaState;
 
         private static App app;
         public bool IsBgSoundPlaying = false;
@@ -98,31 +100,41 @@ namespace GrandAStudio.Filmia
         private SoundEffectInstance _currentSound = null;
         public bool PlaySound(string source)
         {
-            SoundEffect se;
-           
-            if (_currentSound != null)
+            if (App.ViewModel.IsSoundsOn)
             {
-                _currentSound.Stop();
-                _currentSound = null;
-            }
-            var isoStore = System.IO.IsolatedStorage.IsolatedStorageFile.GetUserStoreForApplication();
-            if (isoStore.FileExists(source))
-            {
-                byte[] fileContents;
-                using (var fileStream = isoStore.OpenFile(source, FileMode.Open))
-                {
-                    se = SoundEffect.FromStream(fileStream);
-                    fileStream.Close();//not really needed, but it makes me feel better. 
-                }
+                SoundEffect se;
 
-                _currentSound = se.CreateInstance();
-                _currentSound.Play();
-               
+                if (_currentSound != null)
+                {
+                    _currentSound.Stop();
+                    _currentSound = null;
+                }
+                var isoStore = System.IO.IsolatedStorage.IsolatedStorageFile.GetUserStoreForApplication();
+                if (isoStore.FileExists(source))
+                {
+                    byte[] fileContents;
+                    using (var fileStream = isoStore.OpenFile(source, FileMode.Open))
+                    {
+                        se = SoundEffect.FromStream(fileStream);
+                        fileStream.Close();//not really needed, but it makes me feel better. 
+                    }
+
+                    _currentSound = se.CreateInstance();
+                    _currentSound.Play();
+
+                }
+                return true;
             }
-            return true;
+            return false;
         }
         string _CurrentBGSound = "";
-        public  void SetCurrentBackGroundSound( string _fileName, string title )
+
+        public void SetCurrentBackGroundSound(string _fileName, string title)
+        { 
+        SetCurrentBackGroundSound(  _fileName,  title, false);
+        }
+
+        public  void SetCurrentBackGroundSound( string _fileName, string title, bool confirmed )
         {
             _CurrentBGSound = _fileName;
 
@@ -131,11 +143,50 @@ namespace GrandAStudio.Filmia
             {
                 player = App.Current.Resources["bgPlayer"] as MediaElement;
             }
-            if (player != null)
+            phoneMediaState = MediaPlayer.State;
+            if ((player != null && App.ViewModel.IsSoundsOn))
+                            {
+            switch (MediaPlayer.State)
             {
-                player.Source = (new Uri("/sounds/" + _CurrentBGSound, UriKind.Relative));
-                IsBgSoundPlaying = true;
+                case    MediaState.Playing:
+                    {
+                        if (!confirmed)
+                        {
+                            if (MessageBox.Show("Do you Like to stop Game sounds", "Filmia", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+                            {
+                                StopbackgroundSound();
+                                App.ViewModel.IsSoundsOn = false;
+                            }
+                            else
+                            {
+                                MediaPlayer.Pause();
+
+                                player.Source = (new Uri("/sounds/" + _CurrentBGSound, UriKind.Relative));
+                                IsBgSoundPlaying = true;
+                                App.ViewModel.IsSoundsOn = true;
+
+                            }
+                        }
+                        else
+                        {
+                            MediaPlayer.Pause();
+
+                            player.Source = (new Uri("/sounds/" + _CurrentBGSound, UriKind.Relative));
+                            IsBgSoundPlaying = true;
+                                               
+                        }
+                        break;
+                    }
                 
+
+                default:
+                    {
+                        player.Source = (new Uri("/sounds/" + _CurrentBGSound, UriKind.Relative));
+                        IsBgSoundPlaying = true;
+                        break;
+                    }
+            }
+          
             }
           
          
@@ -224,6 +275,8 @@ namespace GrandAStudio.Filmia
         /// </summary>
         public App()
         {
+            this.ApplicationLifetimeObjects.Add(new
+                 XNAAsyncDispatcher(TimeSpan.FromMilliseconds(50)));
             app = this;
             DB = new Moviadb1DataContext();
             if (!App.CurrentApp.DB.DatabaseExists())
