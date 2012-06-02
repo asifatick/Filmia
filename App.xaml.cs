@@ -75,18 +75,19 @@ namespace GrandAStudio.Filmia
         }
         public void resumebackgroundSound()
         {
+            SetCurrentBackGroundSound(_CurrentBGSound, "1");
             
-            MediaElement player = null; // get the media element from App resources
-            if (App.Current.Resources.Contains("bgPlayer"))
-            {
-                player = App.Current.Resources["bgPlayer"] as MediaElement;
-            }
-            if (player != null)
-            {
-                player.Source = (new Uri("/sounds/" + _CurrentBGSound, UriKind.Relative));
-                IsBgSoundPlaying = true;
+            //MediaElement player = null; // get the media element from App resources
+            //if (App.Current.Resources.Contains("bgPlayer"))
+            //{
+            //    player = App.Current.Resources["bgPlayer"] as MediaElement;
+            //}
+            //if (player != null)
+            //{
+            //    player.Source = (new Uri("/sounds/" + _CurrentBGSound, UriKind.Relative));
+            //    IsBgSoundPlaying = true;
 
-            }
+            //}
 
         }
         public SoundState CurrentSoundState
@@ -155,7 +156,7 @@ namespace GrandAStudio.Filmia
                     {
                         if (!confirmed)
                         {
-                            if (MessageBox.Show("Do you Like to stop Game sounds", "Filmia", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+                            if (MessageBox.Show("Do you want to play Game Sounds?", "Filmia", MessageBoxButton.OKCancel) == MessageBoxResult.Cancel)
                             {
                                 StopbackgroundSound();
                                 App.ViewModel.IsSoundsOn = false;
