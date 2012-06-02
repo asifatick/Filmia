@@ -11,6 +11,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using System.Windows.Media.Imaging;
+using Microsoft.Phone.Tasks;
 
 namespace GrandAStudio.Filmia
 {
@@ -84,6 +85,15 @@ namespace GrandAStudio.Filmia
 
             App.ViewModel.IsSoundsOn = false;
             App.CurrentApp.StopbackgroundSound();
+        }
+
+        private void hyperlinkButton1_Click(object sender, RoutedEventArgs e)
+        {
+            EmailComposeTask emailComposeTask = new EmailComposeTask();
+            emailComposeTask.To = "GandA.Studios@gmail.com";
+           
+           
+            emailComposeTask.Show(); 
         }
 
       
