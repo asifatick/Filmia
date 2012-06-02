@@ -25,7 +25,7 @@ namespace GrandAStudio.Filmia
         {
             NavigationService.RemoveBackEntry();
             App.ViewModel.GScore.TotalGames += 1;
-            App.ViewModel.GScore.TotalQuestions += 15;
+            App.ViewModel.GScore.TotalQuestions += 12;
             App.ViewModel.GScore.TotalPasses += App.ViewModel.GamePasses;
             App.ViewModel.GScore.TotalRightAnswers += App.ViewModel.GameRightAnswer;
             App.ViewModel.GScore.TotlaWrongAnswers += App.ViewModel.GameWrongAnswer;
