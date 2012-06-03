@@ -39,7 +39,7 @@
                    Width="460" Visibility="Collapsed"/>
             <TextBlock Height="116" HorizontalAlignment="Left" 
                        Margin="31,420,0,42" Name="lblMsg" 
-                        VerticalAlignment="Center" 
+                        VerticalAlignment="Center"  TextWrapping="Wrap" 
                        Width="395" TextAlignment="Center" Visibility="Collapsed" />
             <TextBox Height="72" HorizontalAlignment="Left" Margin="20,339,0,0" Name="txtFake" Text="TextBox" VerticalAlignment="Top" Width="0" Visibility="Visible" />
         </Grid>
